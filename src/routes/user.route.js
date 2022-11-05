@@ -6,23 +6,43 @@ const USER_ROUTE = '/users';
 const userRouter = Router();
 
 userRouter.get(USER_ROUTE, async (req, res) => {
-    await getUsers(req.query, res);
+    try {
+        await getUsers(req.query, res);
+    } catch (err) {
+        res.status(500).send({ success: false, message: 'Internal server error' });
+    }
 });
 
-userRouter.get(`${USER_ROUTE}/:id`, async (req, res) => {
-    await getUser(req.params.id, res);
+userRouter.get(`${USER_ROUTE}/:username`, async (req, res) => {
+    try {
+        await getUser(req.params.username, res);
+    } catch (err) {
+        res.status(500).send({ success: false, message: 'Internal server error' });
+    }
 });
 
-userRouter.post(USER_ROUTE, async (req, res) => {
-    await createUser(req.body, res);
+userRouter.post(USER_ROUTE, async ({ body }, res) => {
+    try {
+        await createUser(body, res);
+    } catch (err) {
+        res.status(500).send({ success: false, message: 'Internal server error' });
+    }
 });
 
-userRouter.patch(USER_ROUTE, async (req, res) => {
-    await updateUser(req.body, res);
+userRouter.patch(USER_ROUTE, async ({ body }, res) => {
+    try {
+        await updateUser(body, res);
+    } catch (err) {
+        res.status(500).send({ success: false, message: 'Internal server error' });
+    }
 });
 
 userRouter.delete(`${USER_ROUTE}/:id`, async (req, res) => {
-    await deleteUser(req.params.id, res);
+    try {
+        await deleteUser(req.params.id, res);
+    } catch (err) {
+        res.status(500).send({ success: false, message: 'Internal server error' });
+    }
 });
 
 export default userRouter;
