@@ -1,4 +1,4 @@
-import userRouter from "./user.js";
+import userRouter from "./user.route.js";
 
 const routes = [ 
     userRouter 
